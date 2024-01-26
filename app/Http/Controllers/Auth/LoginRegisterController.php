@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -36,6 +37,13 @@ class LoginRegisterController extends Controller
       'email' => 'required|email|unique:users|min:3|max:150',
       'password' => ['required', 'confirmed', Password::min(10)->max(30)->mixedCase()->numbers()->symbols()->uncompromised()],
     ]);
+
+//    create User model
+//    User::create([
+//      'username' => $request->username,
+//      'email' => $request->email,
+//      'password' => bcrypt($request->password),
+//    ]);
 
     $credentials = $request->only('email', 'password');
     Auth::attempt($credentials);

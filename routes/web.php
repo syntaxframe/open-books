@@ -21,7 +21,7 @@ Route::controller(LoginRegisterController::class)->group(function () {
   Route::get('/signup', 'create')->name('signup');
 
 //  change names
-  Route::post('register', 'store')->name('createAccount');
-  Route::post('signIn', 'login')->name('signIn');
+  Route::post('register', 'store');
+  Route::post('signIn', 'login');
 
 });

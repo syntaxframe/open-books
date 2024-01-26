@@ -4,7 +4,8 @@
   <section class="flex justify-between md:container md:mx-auto mt-32">
     <div>
       <h2 class="text-white text-3xl font-semibold">Create account</h2>
-      <form action="/register" class="w-80 mt-8 flex flex-col gap-3">
+      <form action="/register" class="w-80 mt-8 flex flex-col gap-3" method="post">
+        @csrf
         <div>
           <input class="w-full text-gray-300 bg-inherit border border-gray-900 rounded px-2 py-1" name="username" placeholder="Username (unique)">
         </div>

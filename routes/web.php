@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\LoginRegisterController as LoginRegisterController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,3 +14,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::controller(LoginRegisterController::class)->group(function () {
+  Route::get('/', 'show')->name('home');
+
+  Route::get('/login', 'index')->name('login');
+  Route::get('/signup', 'create')->name('signup');
+
+//  change names
+  Route::post('register', 'store')->name('createAccount');
+  Route::post('signIn', 'login')->name('signIn');
+
+});

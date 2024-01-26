@@ -15,8 +15,16 @@
       </li>
     </ul>
     <div class="flex gap-3 items-center">
-      <a href="/login" class="bg-emerald-500 border border-emerald-500 text-white rounded-xl block px-3 py-2">Login</a>
-      <a href="/signup" class="bg-none border border-emerald-500 text-white rounded-xl block px-3 py-2">Create account</a>
+      @auth
+        <a href="/profile" class="bg-emerald-500 border border-emerald-500 text-white rounded-xl block px-3 py-2">Profile</a>
+        <form action="/logout" method="post">
+          @csrf
+          <button class="bg-none border border-emerald-500 text-white rounded-xl block px-3 py-2">Sign out</button>
+        </form>
+      @else
+        <a href="/login" class="bg-emerald-500 border border-emerald-500 text-white rounded-xl block px-3 py-2">Login</a>
+        <a href="/signup" class="bg-none border border-emerald-500 text-white rounded-xl block px-3 py-2">Create account</a>
+      @endauth
     </div>
   </nav>
 </header>

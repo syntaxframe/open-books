@@ -33,9 +33,10 @@ class LoginRegisterController extends Controller
   public function store(Request $request) : RedirectResponse
   {
     $request->validate([
-      'username' => 'unique:users|min:2|max:100',
+      'username' => 'required|unique:users|min:2|max:100',
       'email' => 'required|email|unique:users|min:3|max:150',
       'password' => ['required', 'confirmed', Password::min(10)->max(30)->mixedCase()->numbers()->symbols()->uncompromised()],
+      'agreement' => 'required',
     ]);
 
     User::create([
@@ -52,20 +53,29 @@ class LoginRegisterController extends Controller
 
   public function login(Request $request) : RedirectResponse
   {
+    $login = $request->input('emailuid');
+    $user = User::where('email', $login)->orWhere('username', $login)->first();
+
+    if (!$user) {
+      return redirect()->back()->withErrors(['emailuid' => 'Invalid username or email'])->withInput(['emailuid' => $request->input('emailuid')]);
+    }
+
     $request->validate([
-      'email' => 'required|email',
       'password' => 'required',
     ]);
 
-    $credentials = $request->only('email', 'password');
-    Auth::attempt($credentials);
-    $request->session()->regenerate();
-
-    return redirect()->route('home')->with(200, 'You`re logged in');
+    if (Auth::attempt(['email' => $user->email, 'password' => $request->password]) ||
+      Auth::attempt(['username' => $user->username, 'password' => $request->password])) {
+      Auth::loginUsingId($user->id);
+      return redirect('/');
+    } else {
+      return redirect()->back()->withErrors(['password' => 'Invalid login credentials']);
+    }
   }
 
   public function logout(Request $request) : RedirectResponse
   {
+    Auth::logout();
     return redirect()->route('home')->with(200, 'You`re logged out');
   }
 }

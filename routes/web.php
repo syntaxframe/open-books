@@ -23,5 +23,5 @@ Route::controller(LoginRegisterController::class)->group(function () {
 //  change names
   Route::post('register', 'store');
   Route::post('signIn', 'login');
-
+  Route::post('logout', 'logout');
 });

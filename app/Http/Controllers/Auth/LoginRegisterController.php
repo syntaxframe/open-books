@@ -38,13 +38,11 @@ class LoginRegisterController extends Controller
       'password' => ['required', 'confirmed', Password::min(10)->max(30)->mixedCase()->numbers()->symbols()->uncompromised()],
     ]);
 
-//    create User model
-//    User::create([
-//      'username' => $request->username,
-//      'email' => $request->email,
-//      'password' => bcrypt($request->password),
-//    ]);
-
+    User::create([
+      'username' => $request->username,
+      'email' => $request->email,
+      'password' => bcrypt($request->password),
+    ]);
     $credentials = $request->only('email', 'password');
     Auth::attempt($credentials);
     $request->session()->regenerate();

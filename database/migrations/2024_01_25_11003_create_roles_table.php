@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB as DB;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -17,7 +18,8 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        \Illuminate\Support\Facades\DB::table('roles')->insert(
+//      Add time when roles created and updated(if it`s not NULL by default)
+        DB::table('roles')->insert(
           array(
             ['name' => 'admin'],
             ['name' => 'user'],

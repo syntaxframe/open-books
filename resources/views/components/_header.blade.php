@@ -1,3 +1,6 @@
+{{--@each('view.name', $jobs, 'job')--}}
+@use('\Illuminate\Support\Facades\Auth')
+@use('\Illuminate\Support\Facades\DB')
 <header class="py-7">
   <nav class="px-10 flex justify-between items-center w-full">
     <a href="/">
@@ -21,7 +24,7 @@
           @csrf
           <button class="bg-none border border-emerald-500 text-white rounded-xl block px-3 py-2">Sign out</button>
         </form>
-        @if(\Illuminate\Support\Facades\Auth::user()->isAdmin())
+        @if(Auth::user()->hasRole(DB::table('roles')->where(DB::raw('LEFT("key",3)'), 'te')->get()))
           <a href="/admin" class="bg-emerald-500 border border-emerald-500 text-white rounded-xl block px-3 py-2">Admin page</a>
         @endif
       @else

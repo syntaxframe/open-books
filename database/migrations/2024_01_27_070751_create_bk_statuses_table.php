@@ -12,7 +12,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('roles', function (Blueprint $table) {
+        Schema::create('bk_statuses', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
             $table->string('key')->unique();
@@ -20,34 +20,27 @@ return new class extends Migration
             $table->timestamps();
         });
 
-//      Add time when roles created and updated(if it`s not NULL by default)
-        DB::table('roles')->insert(
+//        make it w/ seeder
+        DB::table('bk_statuses')->insert(
           array(
             [
-              'name' => 'admin_01',
-              'key' => 'ADM01' ,
-              'description' => '1 lvl admin role',
+              'name' => 'draft_01',
+              'key' => 'dr_01',
+              'description' => '1 lvl draft status',
               'created_at' => DB::raw('NOW()'),
               'updated_at' => DB::raw('NOW()')
             ],
             [
-              'name' => 'moderator_01',
-              'key' => 'MOD01' ,
-              'description' => '1 lvl moderator role',
+              'name' => 'published_01',
+              'key' => 'pb_01',
+              'description' => '1 lvl publication status',
               'created_at' => DB::raw('NOW()'),
               'updated_at' => DB::raw('NOW()')
             ],
             [
-              'name' => 'user_01',
-              'key' => 'USR01' ,
-              'description' => '1 lvl user role',
-              'created_at' => DB::raw('NOW()'),
-              'updated_at' => DB::raw('NOW()')
-            ],
-            [
-              'name' => 'author_01',
-              'key' => 'AUT01' ,
-              'description' => '1 lvl author role',
+              'name' => 'published_02',
+              'key' => 'pb_02',
+              'description' => '2 lvl publication status',
               'created_at' => DB::raw('NOW()'),
               'updated_at' => DB::raw('NOW()')
             ],
@@ -60,6 +53,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('roles');
+        Schema::dropIfExists('bk_statuses');
     }
 };

@@ -21,6 +21,9 @@
           @csrf
           <button class="bg-none border border-emerald-500 text-white rounded-xl block px-3 py-2">Sign out</button>
         </form>
+        @if(\Illuminate\Support\Facades\Auth::user()->isAdmin())
+          <a href="/admin" class="bg-emerald-500 border border-emerald-500 text-white rounded-xl block px-3 py-2">Admin page</a>
+        @endif
       @else
         <a href="/login" class="bg-emerald-500 border border-emerald-500 text-white rounded-xl block px-3 py-2">Login</a>
         <a href="/signup" class="bg-none border border-emerald-500 text-white rounded-xl block px-3 py-2">Create account</a>

@@ -12,12 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('user_permission', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('user_id')->nullable();
-            $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
-            $table->unsignedBigInteger('permission_id')->nullable();
-            $table->foreign('permission_id')->references('id')->on('permissions')->cascadeOnDelete();
-            $table->timestamps();
+          $table->id();
+          $table->unsignedBigInteger('user_id');
+          $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
+          $table->unsignedBigInteger('permission_id');
+          $table->foreign('permission_id')->references('id')->on('permissions')->cascadeOnDelete();
+          $table->timestamps();
         });
     }
 

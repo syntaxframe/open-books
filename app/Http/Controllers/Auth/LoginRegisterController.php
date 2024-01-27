@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rules\Password;
 
 class LoginRegisterController extends Controller
@@ -43,6 +44,8 @@ class LoginRegisterController extends Controller
       'username' => $request->username,
       'email' => $request->email,
       'password' => bcrypt($request->password),
+//      change it with user_role table
+      'role_id' => (DB::table('roles')->select('id')->where('key', 'USR01')->get())[0]->id,
     ]);
     $credentials = $request->only('email', 'password');
     Auth::attempt($credentials);

@@ -21,6 +21,7 @@ class User extends Authenticatable
         'username',
         'email',
         'password',
+        'role_id',
     ];
 
     /**
@@ -42,4 +43,12 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function roles() {
+      return $this->belongsToMany(Role::class, 'user_role');
+    }
+
+    public function isAdmin() {
+      return $this->roles()->where('name', 'Administrator')->exists();
+    }
 }

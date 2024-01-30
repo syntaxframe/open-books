@@ -8,25 +8,25 @@ use Illuminate\Support\ServiceProvider;
 
 class PermissionServiceProvider extends ServiceProvider
 {
-    /**
-     * Register services.
-     */
-    public function register(): void
-    {
-        //
-    }
+  /**
+   * Register services.
+   */
+  public function register(): void
+  {
+      //
+  }
 
-    /**
-     * Bootstrap services.
-     */
-    public function boot(): void
+  /**
+   * Bootstrap services.
+   */
+  public function boot(): void
+  {
+    Permission::get()->map(function ($permission)
     {
-      Permission::get()->map(function ($permission)
+      Gate::define($permission->name, function ($user) use ($permission)
       {
-        Gate::define($permission->name, function ($user) use ($permission)
-        {
-          return $user->hasPermission($permission);
-        });
+        return $user->hasPermission($permission);
       });
-    }
+    });
+  }
 }

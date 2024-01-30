@@ -24,7 +24,7 @@
           @csrf
           <button class="bg-none border border-emerald-500 text-white rounded-xl block px-3 py-2">Sign out</button>
         </form>
-        @if(Auth::user()->hasRole(DB::table('roles')->where(DB::raw('LEFT("key",3)'), 'te')->get()))
+        @if(Auth::user()->hasRole(DB::table('roles')->whereRaw("LEFT(`key`, 3) = 'ADM'")->get()))
           <a href="/admin" class="bg-emerald-500 border border-emerald-500 text-white rounded-xl block px-3 py-2">Admin page</a>
         @endif
       @else

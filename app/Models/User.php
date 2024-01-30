@@ -21,7 +21,6 @@ class User extends Authenticatable
     'username',
     'email',
     'password',
-    'role_id',
   ];
 
   /**
@@ -46,7 +45,7 @@ class User extends Authenticatable
 
   public function roles()
   {
-    return $this->belongsToMany(Role::class);
+    return $this->belongsToMany(Role::class, 'role_user');
   }
 
   public function permissions()
@@ -58,7 +57,7 @@ class User extends Authenticatable
   {
     foreach($roles as $role)
     {
-      if($this->roles->contains('key', $role))
+      if($this->roles->contains('id', $role))
       {
         return true;
       }

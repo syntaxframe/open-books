@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -44,11 +45,16 @@ class LoginRegisterController extends Controller
       'username' => $request->username,
       'email' => $request->email,
       'password' => bcrypt($request->password),
-//      change it with user_role table
+    ]);
+    DB::table('role_user')->insert([
+      'user_id' => DB::getPdo()->lastInsertId(),
       'role_id' => (DB::table('roles')->select('id')->where('key', 'USR01')->get())[0]->id,
+//      is this better than DB::raw()?
+      'created_at' => Carbon::now(),
+      'updated_at' => Carbon::now(),
     ]);
     $credentials = $request->only('email', 'password');
-    Auth::attempt($credentials);
+    Auth::attempt($credentials, true);
     $request->session()->regenerate();
 
     return redirect()->route('home')->with(200, 'You`re logged in new account');
@@ -67,8 +73,8 @@ class LoginRegisterController extends Controller
       'password' => 'required',
     ]);
 
-    if (Auth::attempt(['email' => $user->email, 'password' => $request->password]) ||
-      Auth::attempt(['username' => $user->username, 'password' => $request->password])) {
+    if (Auth::attempt(['email' => $user->email, 'password' => $request->password], true) ||
+      Auth::attempt(['username' => $user->username, 'password' => $request->password], true)) {
       Auth::loginUsingId($user->id);
       return redirect('/');
     } else {

@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
@@ -53,11 +54,11 @@ class User extends Authenticatable
     return $this->belongsToMany(Permission::class);
   }
 
-  public function hasRole(...$roles)
+  public function hasRole($roles)
   {
     foreach($roles as $role)
     {
-      if($this->roles->contains('id', $role))
+      if($this->roles->contains("key", $role->key))
       {
         return true;
       }

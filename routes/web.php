@@ -1,8 +1,8 @@
 <?php
 
+use App\Http\Controllers\AdminController as AdminController;
 use App\Http\Controllers\Auth\LoginRegisterController as LoginRegisterController;
 use Illuminate\Support\Facades\Route;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -24,4 +24,8 @@ Route::controller(LoginRegisterController::class)->group(function () {
   Route::post('register', 'store');
   Route::post('signIn', 'login');
   Route::post('logout', 'logout');
+});
+
+Route::group(['middleware' => 'admin'], function () {
+  Route::get('/book/add',  [AdminController::class, 'index']);
 });

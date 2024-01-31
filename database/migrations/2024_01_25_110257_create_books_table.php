@@ -21,6 +21,8 @@ return new class extends Migration
             $table->foreign('genre_id')->references('id')->on('genres')->nullOnDelete();
             $table->unsignedBigInteger('lang_id')->nullable();
             $table->foreign('lang_id')->references('id')->on('languages')->nullOnDelete();
+            $table->timestamp('publication_date')->nullable();
+            $table->integer('edition_year')->nullable();
             $table->timestamps();
         });
     }

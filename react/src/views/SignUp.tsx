@@ -1,39 +1,6 @@
-import React, {useEffect} from "react";
-import axiosClient from "../axios-client.ts";
-import {useStateContext} from "../context/ContextProvider.tsx";
+import {useEffect} from "react";
 
 export default function SignUp(){
-  const usernameRef = React.useRef<HTMLInputElement>(null)
-  const emailRef = React.useRef<HTMLInputElement>(null)
-  const passwordRef = React.useRef<HTMLInputElement>(null)
-  const passwordConfirmationRef = React.useRef<HTMLInputElement>(null)
-  const agreementRef = React.useRef<HTMLInputElement>(null)
-  const { setUser } = useStateContext();
-  const { setToken } = useStateContext();
-  const [errors, setErrors] = React.useState<string | null>(null)
-
-  const onSubmit = (event: React.FormEvent<Element>) => {
-    event.preventDefault()
-
-    const payload = {
-      usernameRef: usernameRef.current?.value,
-      email: emailRef.current?.value,
-      password: passwordRef.current?.value,
-      password_confirmation: passwordConfirmationRef.current?.value,
-      agreement: agreementRef.current?.value,
-    }
-    axiosClient.post('/signup', payload)
-      .then(({data}) => {
-        setUser(data.user)
-        setToken(data.token);
-      })
-      .catch(err => {
-        const response = err.response;
-        if (response && response.status === 422) {
-          setErrors(response.data.errors)
-        }
-      })
-  }
   useEffect(() => {
     document.title = 'Open Books :: Sign up';
   }, []);
@@ -41,38 +8,31 @@ export default function SignUp(){
     <section className="flex justify-between md:container md:mx-auto mt-32">
       <div>
         <h2 className="text-white text-3xl font-semibold">Create account</h2>
-        <form onSubmit={onSubmit} className="w-96 mt-8 flex flex-col gap-3" method="post">
-          {errors &&
-            <div className="alert">
-              {Object.keys(errors).map(key => (
-                <p key={key}>{errors[key as keyof React.Dispatch<string>][0]}</p>
-              ))}
-            </div>
-          }
+        <form className="w-96 mt-8 flex flex-col gap-3" method="post">
           <div>
-            <input type="text" ref={usernameRef}
+            <input type="text"
                    className="w-full text-gray-300 bg-inherit border border-gray-900 rounded px-2 py-1 @error('username') is-invalid @enderror"
                    name="username" placeholder="Username (unique)" value=""/>
           </div>
           <div>
-            <input type="text" ref={emailRef}
+            <input type="text"
                    className="w-full text-gray-300 bg-inherit border border-gray-900 rounded px-2 py-1 @error('email') is-invalid @enderror"
                    name="email" placeholder="Email*" value=""/>
           </div>
           <div>
-            <input type="password" ref={passwordRef}
+            <input type="password"
                    className="w-full text-gray-300 bg-inherit border border-gray-900 rounded px-2 py-1 @error('password') is-invalid @enderror"
                    name="password" placeholder="Password*"/>
           </div>
           <div>
-            <input type="password" ref={passwordConfirmationRef}
+            <input type="password"
                    className="w-full text-gray-300 bg-inherit border border-gray-900 rounded px-2 py-1 @error('password_confirmation') is-invalid @enderror"
                    name="password_confirmation" placeholder="Repeat password*"/>
           </div>
           <div>
             <div className="inline-flex items-center">
               <label className="relative flex items-center p-3 rounded-full cursor-pointer" htmlFor="link">
-                <input type="checkbox" ref={agreementRef}
+                <input type="checkbox"
                        className="before:content[''] peer relative h-5 w-5 cursor-pointer appearance-none rounded-md border border-blue-gray-200 transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-blue-gray-500 before:opacity-0 before:transition-opacity checked:border-emerald-600 checked:bg-emerald-600 checked:before:bg-emerald-600 hover:before:opacity-10"
                        id="link" name="agreement" />
 

@@ -1,29 +1,7 @@
-import {Link, redirect} from "react-router-dom";
-import {useStateContext} from "../context/ContextProvider";
-import axiosClient from "../axios-client.js";
-import {useEffect} from "react";
+import {Link} from "react-router-dom";
 import React from "react";
 
 export default function Header () {
-  const {token, setUser, setToken} = useStateContext();
-
-  const onLogout = (event: React.MouseEvent<Element, MouseEvent>) => {
-    event.preventDefault();
-
-    axiosClient.post('/logout')
-      .then(() => {
-        setUser({});
-        setToken(null);
-        return redirect('/');
-      });
-  };
-
-  useEffect(() => {
-    axiosClient.get('/user')
-      .then(({data}) => {
-        setUser(data)
-      })
-  }, [])
 
 
   return (
@@ -54,7 +32,7 @@ export default function Header () {
             </li>
           </ul>
           <div className="flex gap-3 items-center">
-            {token ? (
+
               <React.Fragment>
                 <Link to="/book/add"
                       className="flex items-center gap-2 bg-emerald-600 border border-emerald-600 text-white rounded-xl block px-3 py-2">
@@ -72,18 +50,16 @@ export default function Header () {
                 </Link>
                 <Link to="/profile"
                       className="bg-emerald-600 border border-emerald-600 text-white rounded-xl block px-3 py-2">Profile</Link>
-                <button onClick={onLogout}
+                <button
                         className="bg-none border border-emerald-600 text-white rounded-xl block px-3 py-2">Sign out
                 </button>
               </React.Fragment>
-            ) : (
               <React.Fragment>
                 <Link to="/login"
                       className="bg-emerald-600 border border-emerald-600 text-white rounded-xl block px-3 py-2">Login</Link>
                 <Link to="/signup" className="bg-none border border-emerald-600 text-white rounded-xl block px-3 py-2">Create
                   account</Link>
               </React.Fragment>
-            )};
           </div>
         </div>
       </nav>

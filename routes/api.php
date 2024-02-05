@@ -17,3 +17,24 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+Route::post('/user/login', function () {
+  return response(['text' => 'hui']);
+});
+
+
+//Route::controller(LoginRegisterController::class)->group(function () {
+//  Route::get('/', 'show')->name('home');
+//
+//  Route::get('/login', 'index')->name('login');
+//  Route::get('/signup', 'create')->name('signup');
+//
+//
+//  change names
+//  Route::post('register', 'store');
+//  Route::post('signIn', 'login');
+//  Route::post('logout', 'logout');
+//});
+//
+//Route::group(['middleware' => 'admin'], function () {
+//  Route::get('/book/add',  [AdminController::class, 'index']);
+//});

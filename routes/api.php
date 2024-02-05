@@ -17,8 +17,11 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::post('/user/login', function () {
-  return response(['text' => 'hui']);
+Route::controller(\App\Http\Controllers\Auth\LoginRegisterController::class)->group(function() {
+
+  Route::post('/user/login', 'update');
+  Route::post('/user/signup', 'store');
+  Route::post('/user/logout', 'destroy');
 });
 
 

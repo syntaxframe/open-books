@@ -3,6 +3,7 @@ import axiosClient from "../axios-client.ts";
 import Cookies from "js-cookie";
 
 export default function Login() {
+  // const [errors, setErrors] = useState<JSON>();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -12,10 +13,10 @@ export default function Login() {
     axiosClient.get('/sanctum/csrf-cookie').then(() => {
       axiosClient.defaults.headers.common['X-XSRF-TOKEN'] = Cookies.get('XSRF-TOKEN');
       axiosClient.post('/api/user/login', {email, password}).then((response) => {
-        if(response.data.status === 200) {
+        if(response.status === 200) {
           console.log(response.data.text)
         } else {
-          console.log(response.data.errors)
+          // setErrors(response.data.errors)
         }
       })
     })
@@ -40,6 +41,7 @@ export default function Login() {
             <input type="password" onChange={(e) => setPassword(e.target.value)}
                    className="w-full text-gray-300 bg-inherit border border-gray-900 rounded px-2 py-1 @error('password') is-invalid @enderror"
                    name="password" placeholder="Password*"/>
+            {/*<p className="color-red-300">{errors?.password}</p>*/}
           </div>
           <button onClick={handleLogin}
             className="mt-4 w-full bg-emerald-600 border border-emerald-600 text-white rounded-xl block px-3 py-2">Log

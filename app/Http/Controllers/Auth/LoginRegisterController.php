@@ -13,25 +13,6 @@ use Illuminate\Validation\Rules\Password;
 
 class LoginRegisterController extends Controller
 {
-  public function index()
-  {
-    return view('pages.login.login', [
-      'title' => 'Login to open-books'
-    ]);
-  }
-  public function create()
-  {
-    return view('pages.signup.signup', [
-      'title' => 'Create account'
-    ]);
-  }
-  public function show()
-  {
-    return view('pages.home.home', [
-      'title' => 'Home page'
-    ]);
-  }
-
   public function store(Request $request) : RedirectResponse
   {
     $request->validate([
@@ -60,7 +41,7 @@ class LoginRegisterController extends Controller
     return redirect()->route('home')->with(200, 'You`re logged in new account');
   }
 
-  public function login(Request $request) : RedirectResponse
+  public function update(Request $request) : RedirectResponse
   {
     $login = $request->input('emailuid');
     $user = User::where('email', $login)->orWhere('username', $login)->first();
@@ -82,7 +63,7 @@ class LoginRegisterController extends Controller
     }
   }
 
-  public function logout(Request $request) : RedirectResponse
+  public function destroy(Request $request) : RedirectResponse
   {
     Auth::logout();
     return redirect()->route('home')->with(200, 'You`re logged out');

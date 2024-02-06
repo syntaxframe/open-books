@@ -6,7 +6,11 @@ export default {
         "./resources/**/*.vue",
     ],
     theme: {
-        extend: {},
+      extend: {
+        aspectRatio: {
+          '6/9': '6 / 9',
+        },
+      }
     },
     plugins: [],
 };

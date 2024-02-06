@@ -1,7 +1,7 @@
 @extends('layouts.layout')
 
 @section('content')
-  <section class="flex justify-between md:container md:mx-auto mt-32">
+  <section class="flex justify-between md:container md:mx-auto mt-20">
     <div>
       <h2 class="text-white text-3xl font-semibold">Log in</h2>
       <form action="/signIn" class="w-96 mt-8 flex flex-col gap-3" method="post">

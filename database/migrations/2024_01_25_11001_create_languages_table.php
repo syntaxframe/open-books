@@ -17,6 +17,8 @@ return new class extends Migration
       $table->longText('description')->nullable();
       $table->timestamps();
     });
+    \Illuminate\Support\Facades\Artisan::call('db:seed', ['--class' => 'LanguagesSeeder']);
+
   }
 
   /**

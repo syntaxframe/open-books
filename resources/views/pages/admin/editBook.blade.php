@@ -1,20 +1,20 @@
 @extends('layouts.layout')
 
 @section('content')
-  <section class="px-3 md:mx-auto mt-12">
-    <h2 class="text-3xl font-semibold text-gray-50">Create book</h2>
+  <section class="px-6 md:mx-auto mt-12">
+    <h2 class="text-3xl font-semibold text-gray-50">Edit book</h2>
     <div class="">
       <form action="/book/create" class="w-96 mt-8 flex flex-col gap-3" method="post" enctype="multipart/form-data">
         @csrf
         <div class="flex flex-col gap-3">
           <div>
-            <input type="text" class="w-full text-gray-300 bg-inherit border border-gray-900 rounded px-2 py-1 @error('name') is-invalid @enderror" name="name" placeholder="Name of book*" value="{{ old('name') }}">
+            <input type="text" class="w-full text-gray-300 bg-inherit border border-gray-900 rounded px-2 py-1 @error('name') is-invalid @enderror" name="name" placeholder="Name of book*" value="@if(old('name')){{old('name')}}@else{{$book->name}}@endif">
             @error('name')
             <div class="alert alert-danger text-red-300">{{ $message }}</div>
             @enderror
           </div>
           <div>
-            <textarea class="w-full text-gray-300 bg-inherit border border-gray-900 rounded px-2 py-1 @error('description') is-invalid @enderror" name="description" placeholder="Description">@if(old('description')){{old('description')}}@endif</textarea>
+            <textarea class="w-full text-gray-300 bg-inherit border border-gray-900 rounded px-2 py-1 @error('description') is-invalid @enderror" name="description" placeholder="Description">@if(old('name')){{old('name')}}@elseif($book->name){{$book->name}}@endif</textarea>
             @error('description')
             <div class="alert alert-danger text-red-300">{{ $message }}</div>
             @enderror

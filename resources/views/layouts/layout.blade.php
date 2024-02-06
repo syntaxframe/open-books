@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+<html lang="en" class="min-h-full">
 @include('components._head')
 <body class="bg-gray-950 min-h-full">
 @include('components._header')
@@ -5,3 +7,5 @@
   @yield('content')
 </main>
 @include('components._footer')
+</body>
+</html>

@@ -23,6 +23,7 @@ return new class extends Migration
             $table->foreign('lang_id')->references('id')->on('languages')->nullOnDelete();
             $table->timestamp('publication_date')->nullable();
             $table->integer('edition_year')->nullable();
+            $table->string('image_path')->nullable();
             $table->timestamps();
         });
     }

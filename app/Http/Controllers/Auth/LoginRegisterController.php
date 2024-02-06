@@ -25,12 +25,6 @@ class LoginRegisterController extends Controller
       'title' => 'Create account'
     ]);
   }
-  public function show()
-  {
-    return view('pages.home.home', [
-      'title' => 'Home page'
-    ]);
-  }
 
   public function store(Request $request) : RedirectResponse
   {

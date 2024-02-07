@@ -11,7 +11,7 @@
     <div class="flex items-center gap-16">
       <ul class="list-none flex items-center gap-7">
         <li>
-          <a href="/books" class="text-gray-50 font-medium text-xl border-b border-transparent transition-all duration-200 hover:border-current">Books</a>
+          <a href="/#books" class="text-gray-50 font-medium text-xl border-b border-transparent transition-all duration-200 hover:border-current">Books</a>
         </li>
         <li>
           <a href="/random-book" class="text-gray-50 font-medium text-xl border-b border-transparent transition-all duration-200 hover:border-current">Random book</a>

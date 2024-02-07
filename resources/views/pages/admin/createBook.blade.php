@@ -1,7 +1,7 @@
 @extends('layouts.layout')
 
 @section('content')
-  <section class="px-3 md:mx-auto mt-12">
+  <section class="px-6 md:mx-auto mt-12">
     <h2 class="text-3xl font-semibold text-gray-50">Create book</h2>
     <div class="">
       <form action="/book/create" class="w-96 mt-8 flex flex-col gap-3" method="post" enctype="multipart/form-data">
